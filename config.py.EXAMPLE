@@ -29,15 +29,18 @@ gpio_air  = 9   # Switches 0-phase det. solid-state-relay
 ### Inputs
 gpio_door = 18
 
-### Thermocouple Adapter selection (MAX31855 or MAX6675)
+### Thermocouple Adapter selection (MAX31855 or MAX6675 or VA18B)
 max31855 = 1
 max6675 = 0
+va18b = 0
 
 ### Thermocouple I2C Connection
 gpio_sensor_cs = 27
 gpio_sensor_clock = 22
 gpio_sensor_data = 17
 
+# serial dmm device
+device = '/dev/ttyUSB0'
 
 ########################################################################
 #

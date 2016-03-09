@@ -10,7 +10,7 @@ import config
 log = logging.getLogger(__name__)
 
 try:
-    if (config.max31855 == config.max6675):
+    if (config.max31855 == config.max6675 == config.va18b):
     	log.error("choose (only) one converter IC")
 	exit()
     if config.max31855:
@@ -19,6 +19,9 @@ try:
     if config.max6675:
    	from max6675 import MAX6675, MAX6675Error
     	log.info("import MAX6675")
+    if config.va18b:
+        from va18b import VA18B
+        log.info("import VA18B")
     sensor_available = True
 except ImportError:
     log.warning("Could not initialize temperature sensor, using dummy values!")
@@ -216,6 +219,9 @@ class TempSensorReal(TempSensor):
                                      config.gpio_sensor_clock,
                                      config.gpio_sensor_data,
                                      "c")
+        if config.va18b:
+        	log.info("init DMM VA18B")
+        	self.thermocouple = VA18B(config.device)
 
     def run(self):
         while True:
