@@ -15,7 +15,9 @@ import time
 import serial
 import io
 import getopt
+import thread
 
+data = 0.0
 class VA18B(object):
     def __init__(self, device = '/dev/ttyUSB0'):
         self.device = device
@@ -34,6 +36,8 @@ class VA18B(object):
         except IOError,err:
             print '\nError:' + str(err) + '\n'
             sys.exit(1)
+
+        thread.start_new_thread( self.read, ())
 
     # Every packet is 14 bytes long.
     def get_bytes(self):
@@ -132,14 +136,15 @@ class VA18B(object):
         return float(value)
 
     def get(self):
-        self.read()
-        return self.data
+        return data
 
     def read(self):
-        substr = self.get_bytes()
-        self.data = self.stream_decode(substr)
-        # print self.data
-        # self.port.flushInput()
+        while 1:
+            global data
+            substr = self.get_bytes()
+            data = self.stream_decode(substr)
+            # time.sleep(0.5)
+            # self.port.flushInput()
 
 class VA18BError(Exception):
      def __init__(self, value):
