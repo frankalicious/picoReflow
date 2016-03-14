@@ -10,7 +10,7 @@ import config
 log = logging.getLogger(__name__)
 
 try:
-    if (config.max31855 == config.max6675 == config.va18b):
+    if sum(map(bool,[config.max31855, config.max6675, config.va18b])) != 1:
     	log.error("choose (only) one converter IC")
 	exit()
     if config.max31855:
