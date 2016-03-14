@@ -149,11 +149,11 @@ class Oven (threading.Thread):
         if value:
             self.heat = 1.0
             if gpio_available:
-                GPIO.output(config.gpio_heat, GPIO.LOW)
+                GPIO.output(config.gpio_heat, GPIO.HIGH)
         else:
             self.heat = 0.0
             if gpio_available:
-                GPIO.output(config.gpio_heat, GPIO.HIGH)
+                GPIO.output(config.gpio_heat, GPIO.LOW)
 
     def set_cool(self, value):
         if value:
