@@ -33,7 +33,7 @@ class VA18B(object):
             if not self.port.isOpen():
                 self.port.open()
 
-        except IOError,err:
+        except (IOError,OSError),err:
             print '\nError:' + str(err) + '\n'
             sys.exit(1)
 
