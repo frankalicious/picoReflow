@@ -337,11 +337,11 @@ class PID():
 
         error = float(setpoint - ispoint)
         self.iterm += (error * timeDelta * self.ki)
-        self.iterm = sorted([-1, self.iterm, 1])[1]
+        self.iterm = sorted([-1, self.iterm, 1])[1]# limit value to [-1 self.iterm 1]
         dErr = (error - self.lastErr) / timeDelta
 
         output = self.kp * error + self.iterm + self.kd * dErr
-        output = sorted([-1, output, 1])[1]
+        output = sorted([-1, output, 1])[1] # limit value to [-1 output 1]
         self.lastErr = error
         self.lastNow = now
 
